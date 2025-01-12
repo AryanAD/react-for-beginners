@@ -1,31 +1,56 @@
+import { useState } from "react";
+
 const Testimonials = () => {
+  const [index, setIndex] = useState(0);
   return (
     <div className="flex flex-col items-center justify-center min-w-[100vw] min-h-screen bg-emerald-50">
-      <h2 className="text-3xl font-bold text-center text-emerald-400">
+      <h2 className="text-3xl font-bold text-center underline text-emerald-400">
         What Our Clients Say
       </h2>
-      <div className="grid grid-cols-1 gap-8 px-4 py-8 mx-auto md:grid-cols-2 lg:grid-cols-3 max-w-7xl">
-        {testimonials.map((testimonial) => (
-          <div
-            key={testimonial.name}
-            className="bg-white border-2 rounded-lg shadow-sm drop-shadow-md border-emerald-50"
-          >
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-gray-700">
-                  {testimonial.name}
-                </h3>
-                <span className="text-sm text-yellow-600">
-                  {testimonial.rating} ★
-                </span>
-              </div>
-              <p className="mb-4 text-sm text-gray-600">
-                {testimonial.message}
-              </p>
-              <p className="text-xs text-gray-400">{testimonial.position}</p>
-            </div>
+      <div
+        key={testimonials[index].name}
+        className="my-4 bg-white border-2 rounded-lg shadow-sm drop-shadow-md border-emerald-50"
+      >
+        <div className="p-6">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-gray-700">
+              {testimonials[index].name}
+            </h3>
+            <span className="text-sm text-yellow-600">
+              {testimonials[index].rating} ★
+            </span>
           </div>
-        ))}
+          <p className="mb-4 text-sm text-gray-600">
+            {testimonials[index].message}
+          </p>
+          <p className="text-xs text-gray-400">
+            {testimonials[index].position}
+          </p>
+          <div className="flex items-center justify-between w-full mt-3">
+            <button
+              onClick={() => setIndex(index - 1)}
+              disabled={index === 0}
+              className={`px-6 rounded-full py-2 ${
+                index === 0
+                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  : "text-white shadow-md bg-emerald-500 drop-shadow-lg"
+              }`}
+            >
+              Previous
+            </button>
+            <button
+              onClick={() => setIndex(index + 1)}
+              disabled={index === testimonials.length - 1}
+              className={`px-6 rounded-full py-2 ${
+                index === testimonials.length - 1
+                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  : "text-white shadow-md bg-emerald-500 drop-shadow-lg"
+              }`}
+            >
+              Next
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -96,5 +121,7 @@ const testimonials = [
       "Professional and reliable! The team provided consistent updates and excellent support.",
   },
 ];
+
+console.log(testimonials);
 
 export default Testimonials;
